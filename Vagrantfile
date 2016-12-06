@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
     project
     .go
   ).each do |dir|
-    config.vm.synced_folder "../#{dir}", "/home/vagrant/#{dir}" if  File.exist?("../#{dir}")
+    config.vm.synced_folder "./#{dir}", "/home/vagrant/#{dir}" if  File.exist?("./#{dir}")
   end
   
   # playbookの設定

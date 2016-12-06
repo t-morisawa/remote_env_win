@@ -1,4 +1,4 @@
 install_path: /var/tmp
-home_dir : /home/vagrant/
+home_dir : /home/vagrant
 user : vagrant
 git_url: https://github.com/git/git/tarball/{{ git_version }}

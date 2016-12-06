@@ -16,13 +16,8 @@
   when: nodebrew_is_installed|failed
 
 - name: add nodebrew to PATH
-  become: yes
+  become: no
   lineinfile: >
     dest="{{ home_dir }}/.bash_profile"
     line="export PATH=$HOME/.nodebrew/current/bin:$PATH"
-  when: nodebrew_is_installed|failed
-
-- name: reload .bash_profile
-  become: yes
-  shell: source ~/.bash_profile
   when: nodebrew_is_installed|failed

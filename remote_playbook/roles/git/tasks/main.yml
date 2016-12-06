@@ -1,3 +1,10 @@
+- name: check git is installed.
+  become: no
+  shell: git --help
+  register: git_is_installed
+  changed_when: no
+  ignore_errors: yes
+
 - name: install dependencies packages
   yum: name={{ item }}
   with_items: 
@@ -11,11 +18,13 @@
     - asciidoc
     - xmlto
   tags: git
+  when: git_is_installed|failed
 
 - name: download source
   get_url: url={{ git_url }}
            dest={{ install_path }}/{{ git_tar }}
   tags: git
+  when: git_is_installed|failed
 
 - name: compile & install
   shell: cd {{ install_path }} \
@@ -24,3 +33,4 @@
          && make prefix=/usr/local all doc \
          && sudo make prefix=/usr/local install install-doc install-html
   tags: git
+  when: git_is_installed|failed
