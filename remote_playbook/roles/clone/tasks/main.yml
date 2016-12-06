@@ -1,0 +1,9 @@
+- name: clone ntpf project
+  shell: {{ stash_url }}/{{ item }} {{ home_dir }}/ntpf
+  with_items:
+    - "{{ ntpf_project }}"
+
+- name: clone go project
+  shell: {{ stash_url }}/{{ item }} {{ home_dir }}/.go
+  with_items:
+    - "{{ go_application }}"
