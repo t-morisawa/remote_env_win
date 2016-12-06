@@ -1,0 +1,11 @@
+- hosts: vagrant_host
+  connection: "{{ connection }}"
+  become: yes
+  vars_files:
+    - vars/{{ stage }}.yml
+    - vars/common.yml
+  roles:
+    - git
+    - nodebrew
+    - node
+    - nginx

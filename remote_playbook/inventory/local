@@ -1,0 +1,10 @@
+[vagrant_host]
+localhost
+
+[web-servers]
+192.168.33.10
+
+[all:vars]
+stage=local
+ansible_ssh_user=vagrant
+ansible_password=vagrant

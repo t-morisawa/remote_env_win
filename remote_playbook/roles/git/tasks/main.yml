@@ -1,0 +1,26 @@
+- name: install dependencies packages
+  yum: name={{ item }}
+  with_items: 
+    - make
+    - curl-devel
+    - gcc
+    - openssl-devel
+    - expat-devel
+    - cpan
+    - gettext
+    - asciidoc
+    - xmlto
+  tags: git
+
+- name: download source
+  get_url: url={{ git_url }}
+           dest={{ install_path }}/{{ git_tar }}
+  tags: git
+
+- name: compile & install
+  shell: cd {{ install_path }} \
+         && tar -zxf {{ git_tar }} \ 
+         && cd {{ git_dir_name }} \
+         && make prefix=/usr/local all doc \
+         && sudo make prefix=/usr/local install install-doc install-html
+  tags: git

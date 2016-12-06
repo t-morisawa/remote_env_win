@@ -1,0 +1,28 @@
+- name: check nodebrew is installed.
+  become: no
+  shell: nodebrew help
+  register: nodebrew_is_installed
+  changed_when: no
+  ignore_errors: yes
+
+- name: download nodebrew
+  become: no
+  get_url: url="http://git.io/nodebrew" dest={{ install_path }}/nodebrew
+  when: nodebrew_is_installed|failed
+
+- name: install nodebrew
+  become: no
+  command: perl {{ install_path }}/nodebrew setup
+  when: nodebrew_is_installed|failed
+
+- name: add nodebrew to PATH
+  become: yes
+  lineinfile: >
+    dest="{{ home_dir }}/.bash_profile"
+    line="export PATH=$HOME/.nodebrew/current/bin:$PATH"
+  when: nodebrew_is_installed|failed
+
+- name: reload .bash_profile
+  become: yes
+  shell: source ~/.bash_profile
+  when: nodebrew_is_installed|failed

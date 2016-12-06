@@ -1,0 +1,11 @@
+- name: check nginx is installed.
+  become: no
+  shell: bash -lc "nodebrew -h"
+  register: nodebrew_is_installed
+  changed_when: no
+  ignore_errors: yes
+
+- name: install nginx
+  yum:
+    name=nginx
+    state=present
