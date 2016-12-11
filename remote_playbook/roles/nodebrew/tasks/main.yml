@@ -7,7 +7,9 @@
 
 - name: download nodebrew
   become: no
-  get_url: url="http://git.io/nodebrew" dest={{ install_path }}/nodebrew
+  get_url:
+    url={{ nodebrew_url }}
+    dest={{ install_path }}/nodebrew
   when: nodebrew_is_installed|failed
 
 - name: install nodebrew

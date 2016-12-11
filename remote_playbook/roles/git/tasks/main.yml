@@ -21,8 +21,9 @@
   when: git_is_installed|failed
 
 - name: download source
-  get_url: url={{ git_url }}
-           dest={{ install_path }}/{{ git_tar }}
+  get_url:
+    url={{ git_url }}
+    dest={{ install_path }}/{{ git_tar }}
   tags: git
   when: git_is_installed|failed
 
