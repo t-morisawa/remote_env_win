@@ -3,11 +3,13 @@
 
 ## 環境構築手順
 
-Vagrantをインストール
+VirtualBoxをインストール
+
+https://www.virtualbox.org/wiki/Downloads
+
+Vagrantをインストール（1.9.0推奨。特に、Vagrant 1.8.7はCentOS7.2が動かないので注意）
 
 https://www.vagrantup.com/downloads.html
-
-ただし、Vagrant 1.8.7だけCentOS7.2が動かないので注意
 
 以下のコマンドで環境構築
 
@@ -18,7 +20,8 @@ $ vagrant up # at /path/to/remote_env_win
 
  * boxの名前は必ずcentos7.2とする。
  * boxのURLが無効だったら http://www.vagrantbox.es/ からcentos7.2のboxのURLを探す。
- * vagrant up後、ansibleの冪等性を保つためfatalが出力されるが問題ない。最終的に以下のように `unreachable=0 failed=0` となっていればOK。
+ * 初回起動時、タスクの一部は存在確認のためにfailedになるが、ignoringとなっているものに関しては正常な動作である。
+ 最終的に以下のようにunreachable / failedの項目が0になっていれば全ての正常に終了したことになる。
 
 ```
 PLAY RECAP *********************************************************************
