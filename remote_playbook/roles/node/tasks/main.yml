@@ -1,6 +1,6 @@
 - name: check node is installed.
   become: no
-  shell: bash -lc "nodebrew ls | grep {{ node_version }}"
+  shell: bash -lc "node -v"
   register: node_is_installed
   changed_when: no
   ignore_errors: yes

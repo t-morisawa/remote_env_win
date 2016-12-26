@@ -1,0 +1,12 @@
+- name: check httpd is installed.
+  become: no
+  shell: httpd -v
+  register: httpd_is_installed
+  changed_when: no
+  ignore_errors: yes
+
+- name: Install httpd
+  yum:
+    name=httpd
+    state=present
+  when: httpd_is_installed|failed

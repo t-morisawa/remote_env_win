@@ -1,6 +1,6 @@
 - name: check nodebrew is installed.
   become: no
-  shell: nodebrew help
+  shell: bash -lc "nodebrew ls"
   register: nodebrew_is_installed
   changed_when: no
   ignore_errors: yes

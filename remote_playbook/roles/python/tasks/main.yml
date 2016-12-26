@@ -1,0 +1,37 @@
+- name: check pyenv is installed.
+  become: no
+  shell: pyenv help
+  register: pyenv_is_installed
+  changed_when: no
+  ignore_errors: yes
+
+- name: create dir
+  file:
+    path={{ pyenv_path }}
+    state=directory
+  when: pyenv_is_installed|failed
+
+- name: clone pyenv
+  become: yes
+  git:
+    repo={{ pyenv_repository }}
+    dest={{ pyenv_path }}
+  when: pyenv_is_installed|failed
+
+- name: register pyenv as PYENV_ROOT
+  become: yes
+  lineinfile: >
+    dest="{{ home_dir }}/.bash_profile"
+    line="export PYENV_ROOT=$HOME/.pyenv"
+  when: pyenv_is_installed|failed
+
+- name: add pyenv to PATH
+  become: yes
+  lineinfile: >
+    dest="{{ home_dir }}/.bash_profile"
+    line="export PATH=$PYENV_ROOT/bin:$PATH"
+  when: pyenv_is_installed|failed
+
+- name: install python
+  command: "PYENV_ROOT/bin/pyenv install {{ python_version }}"
+  when: pyenv_is_installed|failed

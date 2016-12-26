@@ -9,3 +9,5 @@
     - nodebrew
     - node
     - nginx
+    - httpd
+    - python
