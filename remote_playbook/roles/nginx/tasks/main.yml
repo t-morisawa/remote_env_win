@@ -1,6 +1,6 @@
 - name: check nginx is installed.
   become: no
-  shell: bash -lc "nignx -h"
+  shell: bash -lc "nginx -v"
   register: nginx_is_installed
   changed_when: no
   ignore_errors: yes

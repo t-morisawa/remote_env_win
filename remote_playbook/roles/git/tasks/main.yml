@@ -1,4 +1,4 @@
-- name: check git is installed.
+- name: check git is installed
   become: no
   shell: git --help
   register: git_is_installed
@@ -34,4 +34,12 @@
          && make prefix=/usr/local all doc \
          && sudo make prefix=/usr/local install install-doc install-html
   tags: git
+  when: git_is_installed|failed
+
+- name: edit sudoers
+  become: yes
+  replace: >
+    dest=/etc/sudoers
+    regexp="^Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin$"
+    replace="Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin"
   when: git_is_installed|failed
