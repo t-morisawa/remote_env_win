@@ -5,8 +5,12 @@
   changed_when: no
   ignore_errors: yes
 
-- name: install dependencies packages
+- name: install rpm
   shell: sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+  tags: php
+  when: php_is_installed|failed
+
+- name: install dependencies packages
   yum: name={{ item }}
   with_items: 
     - epel-release
