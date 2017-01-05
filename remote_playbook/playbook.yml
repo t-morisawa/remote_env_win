@@ -10,5 +10,5 @@
     - node
     - nginx
     - httpd
-    - python
     - php
+    - python
