@@ -5,11 +5,15 @@
   changed_when: no
   ignore_errors: yes
 
-- name: install dependencies packages
+- name: install remi repository
+  shell: wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && rpm -Uvh remi-release-7.rpm
+  tags: php
+  when: php_is_installed|failed
+
+- name: install epel repository
   yum: name={{ item }}
   with_items: 
     - epel-release
-    - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
   tags: php
   when: php_is_installed|failed
 
